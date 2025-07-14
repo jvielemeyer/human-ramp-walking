@@ -14,7 +14,7 @@ The file main_calculation.py creates a GUI. The GUI is created to calculate the 
 		- scipy
 		- sys
 		- tkinter
-2. files:
+2. code files:
 	- main_calculation.py
 	- initialization files
 		- anthropometrics.ini
@@ -27,9 +27,11 @@ The file main_calculation.py creates a GUI. The GUI is created to calculate the 
 		- calcReadInData.py
 		- calcSave.py
 		- calcVPP.py
-3. data folders:
-	-  “Data_Level_1” (raw data example in txt, whole data set on FigShare)
-	-  “Data_Level_2” (calculated data in npz) 
+3. data folder: “Data_Level_1”
+	- raw data in .txt
+ 	- here you find an example of 3 files
+	- the whole dataset can be found at the figshare repository; please download the folder from there and save it as "Data_Level_1" in the main folder, where "main_calculation.py" is stored
+	
       
 ## Start 
 
@@ -55,7 +57,7 @@ Start in terminal with the following input:
 		- “plot joints” creates single curves of head and thorax angle; shoulder and elbow angle of ipsi- and contralateral join; hip, knee, and ankle joint angle/moment/power for the ipsi- and contralateral joint for the chosen trial
 	3. the program creates 
 		- “VPP_Data.csv” with all VPP data in one file
-- folder “Data_Level_2” with compressed data for visualization
+		- folder “Data_Level_2” with compressed data (.npz) for visualization
 
 
 # Visualization
@@ -67,13 +69,16 @@ Start in terminal with the following input:
 		- numpy
 		- os
 		- sys
-2. files:
+2. code files:
 	- main_visualization.py
 	- folder “visualization” includes
 		-  “mean_calc.py” (calculate mean values over trials and subjects)
 		- “plot_all.py” (plot routine to plot all single trials)
 		-  “plot_means.py” (plot  mean curves over trials and subjects)
-3. data: folder “Data_Level_2” (data compressed as npz, could be created by VPP calculation tool, see “calculation”, note: you need the whole data set and not only the exemplarily created 3 files to build the mean values for plotting)
+3. data folder: “Data_Level_2”
+	- data compressed as .npz
+ 	- could be created by VPP calculation tool GUI, see paragraph “calculation”, or can be downloaded from the figshare repository
+  	- note: you need at least data of two participants to build mean values for plotting 
       
 ## Start in terminal with the following input:
 
@@ -81,7 +86,7 @@ Start in terminal with the following input:
 
 `python3 main_visualization.py`
 
-main_visualization.py contains (please uncomment the part that you need):
+main_visualization.py contains (please uncomment the part that you need in the main file):
 1. kinematics
 	- calculate mean values
 	- plot mean values (angles, moments, power)
