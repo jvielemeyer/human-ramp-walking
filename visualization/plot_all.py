@@ -92,6 +92,8 @@ def scatterplot_VPP(VPP_mean, VPP):
                 clr = (0,0,0.9) #dark blue
             elif "10_down" in name:
                 clr = (0.8,0,0.2) #dark red
+            else:
+                clr = "w"
         else:
             v = VPP[index]
 

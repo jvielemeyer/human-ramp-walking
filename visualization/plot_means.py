@@ -3,141 +3,6 @@ import matplotlib.pyplot as plt
 import os
 
 
-def plot_kinematics(ankleA,ankleM,ankleP, kneeA, kneeM, kneeP, hipA, hipM, hipP,ankleA_std,ankleM_std,ankleP_std,kneeA_std, kneeM_std, kneeP_std, hipA_std, hipM_std, hipP_std):
-    transp = 0.2
-    line = 2 #linewidth
-    length_vector = 101
-
-     #--------------mean over level up and level down:
-    #[0] ramp 10 up, [1] ramp 10 down, (2) level up, (3) ramp 75 down, [4] ramp 75 up, [5] level down
-
-    ankleA_level = np.mean(np.array([ankleA[2][1],ankleA[5][1]]),axis = 0)
-    ankleA_level_std=np.mean(np.array([ankleA_std[2][1],ankleA_std[5][1]]),axis = 0)
-    kneeA_level = np.mean(np.array([kneeA[2][1],kneeA[5][1]]),axis = 0)
-    kneeA_level_std=np.mean(np.array([kneeA_std[2][1],kneeA_std[5][1]]),axis = 0)
-    hipA_level = np.mean(np.array([hipA[2][1],hipA[5][1]]),axis = 0)
-    hipA_level_std=np.mean(np.array([hipA_std[2][1],hipA_std[5][1]]),axis = 0)
-    ankleM_level = np.mean(np.array([ankleM[2][1],ankleM[5][1]]),axis = 0)
-    ankleM_level_std=np.mean(np.array([ankleM_std[2][1],ankleM_std[5][1]]),axis = 0)
-    kneeM_level = np.mean(np.array([kneeM[2][1],kneeM[5][1]]),axis = 0)
-    kneeM_level_std=np.mean(np.array([kneeM_std[2][1],kneeM_std[5][1]]),axis = 0)
-    hipM_level = np.mean(np.array([hipM[2][1],hipM[5][1]]),axis = 0)
-    hipM_level_std=np.mean(np.array([hipM_std[2][1],hipM_std[5][1]]),axis = 0)
-    ankleP_level = np.mean(np.array([ankleP[2][1],ankleP[5][1]]),axis = 0)
-    ankleP_level_std=np.mean(np.array([ankleP_std[2][1],ankleP_std[5][1]]),axis = 0)
-    kneeP_level = np.mean(np.array([kneeP[2][1],kneeP[5][1]]),axis = 0)
-    kneeP_level_std=np.mean(np.array([kneeP_std[2][1],kneeP_std[5][1]]),axis = 0)
-    hipP_level = np.mean(np.array([hipP[2][1],hipP[5][1]]),axis = 0)
-    hipP_level_std=np.mean(np.array([hipP_std[2][1],hipP_std[5][1]]),axis = 0)
-
-    #-----------------------------------------
-    plt.rc ('font', size = 15) # steuert die Standardtextgröße
-    plt.rc ('axes', labelsize = 15) # Schriftgröße der x- und y-Beschriftungen
-    plt.rc ('xtick', labelsize = 15) #Schriftgröße der x-Tick-Labels
-    plt.rc ('ytick', labelsize = 15) #Schriftgröße der y-Tick-Labels
-    plt.rc ('legend', fontsize = 10) #Schriftgröße der Legende
-    fig1, axs = plt.subplots(3,3,figsize=(16, 16))
-    #fig1.suptitle('Mean of all probands (angle/ moment: sagittal, power: vertical)')
-    #  axs[0,1].set_title('Mean of all probands (angle/ moment: sagittal, power: vertical)')
-
-
-    axs[0,0].plot(ankleA[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[0,0].plot(ankleA[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[0,0].plot(ankleA_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[0,0].plot(ankleA[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[0,0].plot(ankleA[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-
-    axs[0,0].fill_between(range(length_vector), ankleA_level-ankleA_level_std, ankleA_level+ankleA_level_std,color ='k', alpha = transp)
-
-    axs[1,0].plot(kneeA[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[1,0].plot(kneeA[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[1,0].plot(kneeA_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[1,0].plot(kneeA[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[1,0].plot(kneeA[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[1,0].fill_between(range(length_vector), kneeA_level-kneeA_level_std, kneeA_level+kneeA_level_std,color ='k', alpha = transp)
-
-
-    axs[2,0].plot(hipA[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[2,0].plot(hipA[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[2,0].plot(hipA_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[2,0].plot(hipA[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[2,0].plot(hipA[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[2,0].fill_between(range(length_vector), hipA_level-hipA_level_std, hipA_level+hipA_level_std,color ='k', alpha = transp)
-
-    #-----------Moments
-
-
-    axs[0,1].plot(ankleM[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[0,1].plot(ankleM[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[0,1].plot(ankleM_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[0,1].plot(ankleM[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[0,1].plot(ankleM[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[0,1].fill_between(range(length_vector), ankleM_level-ankleM_level_std, ankleM_level+ankleM_level_std,color ='k', alpha = transp)
-
-    axs[1,1].plot(kneeM[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[1,1].plot(kneeM[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[1,1].plot(kneeM_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[1,1].plot(kneeM[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[1,1].plot(kneeM[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[1,1].fill_between(range(length_vector), kneeM_level-kneeM_level_std, kneeM_level+kneeM_level_std,color ='k', alpha = transp)
-
-    axs[2,1].plot(hipM[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[2,1].plot(hipM[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[2,1].plot(hipM_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[2,1].plot(hipM[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[2,1].plot(hipM[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[2,1].fill_between(range(length_vector), hipM_level-hipM_level_std, hipM_level+hipM_level_std,color ='k', alpha = transp)
-
-    #------------------Power
-
-    axs[0,2].plot(ankleP[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[0,2].plot(ankleP[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[0,2].plot(ankleP_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[0,2].plot(ankleP[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[0,2].plot(ankleP[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[0,2].fill_between(range(length_vector), ankleP_level-ankleP_level_std, ankleP_level+ankleP_level_std,color ='k', alpha = transp)
-
-    axs[1,2].plot(kneeP[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[1,2].plot(kneeP[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[1,2].plot(kneeP_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[1,2].plot(kneeP[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[1,2].plot(kneeP[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[1,2].fill_between(range(length_vector), kneeP_level-kneeP_level_std, kneeP_level+kneeP_level_std,color ='k', alpha = transp)
-
-    axs[2,2].plot(hipP[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
-    axs[2,2].plot(hipP[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
-    axs[2,2].plot(hipP_level,color = (0,0,0), linewidth = line)  #level, black
-    axs[2,2].plot(hipP[3][1],color = (1,0.5,0.4), linewidth = line) #7.5 down, light red
-    axs[2,2].plot(hipP[1][1],color = (0.8,0,0.2), linewidth = line) #10 down, dark red
-
-    axs[2,2].fill_between(range(length_vector), hipP_level-hipP_level_std, hipP_level+hipP_level_std,color ='k', alpha = transp)
-
-    for i in range(0,3):
-        for j in range(0,3):
-            axs[i,j].axhline(y=0, color='k', linestyle='-',alpha = 0.5)
-
-
-    axs[1,0].legend(["ramp 10° up","ramp 7.5° up","level mean $\pm$ std","ramp 7.5° down","ramp 10° down"])
-    axs[0,0].set(ylabel='Ankle Angle [deg]')
-    axs[1,0].set(ylabel='Knee Angle [deg]')
-    axs[2,0].set(xlabel='gait cycle [%]', ylabel='Hip Angle [deg]')
-    axs[0,1].set(ylabel='Ankle Moment [Nm/kg]')
-    axs[1,1].set(ylabel='Knee Moment [Nm/kg]')
-    axs[2,1].set(xlabel='gait cycle [%]', ylabel='Hip Moment [Nm/kg]')
-    axs[0,2].set(ylabel='Ankle Power [W/kg]')
-    axs[1,2].set(ylabel='Knee Power [W/kg]')
-    axs[2,2].set(xlabel='gait cycle [%]', ylabel='Hip Power [W/kg]')
-    plt.draw()
-    plt.show()
-
 def plot_moment_power(ankleM, ankleP, kneeM, kneeP, hipM, hipP, ankleM_std,ankleP_std, kneeM_std, kneeP_std, hipM_std, hipP_std):
     transp = 0.2
     line = 2 #linewidth
@@ -161,7 +26,7 @@ def plot_moment_power(ankleM, ankleP, kneeM, kneeP, hipM, hipP, ankleM_std,ankle
     plt.rc ('xtick', labelsize = 15)
     plt.rc ('ytick', labelsize = 15)
     plt.rc ('legend', fontsize = 10)
-    fig1, axs = plt.subplots(3,2,figsize=(16, 16))
+    fig1, axs = plt.subplots(3,2)#,figsize=(16, 16))
 
     #-----------Moments
     axs[0,0].plot(hipM[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
@@ -217,7 +82,7 @@ def plot_moment_power(ankleM, ankleP, kneeM, kneeP, hipM, hipP, ankleM_std,ankle
 
     for i in range(0,3):
         axs[i,0].axis([0, 100, -1.5, 2])
-        axs[i,1].axis([0, 100, -3.8, 5])
+        axs[i,1].axis([0, 100, -3.8, 6])
         for j in range(0,2):
             axs[i,j].axhline(y=0, color='k', linestyle='-',alpha = 0.5)
 
@@ -272,7 +137,7 @@ def plot_angles(head, thorax, shoulder_ipsi,shoulder_contra, elbow_ipsi, elbow_c
     plt.rc ('legend', fontsize = 10)
     nmbx = 3
     nmby = 4
-    fig1, axs = plt.subplots(nmbx,nmby,figsize=(20, 16))
+    fig1, axs = plt.subplots(nmbx,nmby) #,figsize=(20, 16))
 
     axs[0,0].plot(head[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
     axs[0,0].plot(head[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
@@ -378,12 +243,12 @@ def plot_angles(head, thorax, shoulder_ipsi,shoulder_contra, elbow_ipsi, elbow_c
     axs[0,3].axis([0, 100, -20, 60])
     axs[1,0].axis([0, 100, -30, 15])
     axs[1,1].axis([0, 100, -30, 15])
-    axs[1,2].axis([0, 100, -20, 75])
-    axs[1,3].axis([0, 100, -20, 75])
-    axs[2,0].axis([0, 100, 20, 60])
-    axs[2,1].axis([0, 100, 20, 60])
-    axs[2,2].axis([0, 100, -30, 20])
-    axs[2,3].axis([0, 100, -30, 20])
+    axs[1,2].axis([0, 100, -20, 80])
+    axs[1,3].axis([0, 100, -20, 80])
+    axs[2,0].axis([0, 100, 20, 65])
+    axs[2,1].axis([0, 100, 20, 65])
+    axs[2,2].axis([0, 100, -30, 25])
+    axs[2,3].axis([0, 100, -30, 25])
 
     axs[0,0].legend(["ramp 10° up","ramp 7.5° up","level mean $\pm$ std","ramp 7.5° down","ramp 10° down"])
     axs[0,0].set(ylabel='Head Angle [deg]')
@@ -407,13 +272,14 @@ def plot_GRFs(Fx1,Fx2,Fz1, Fz2,Fx1_std,Fx2_std,Fz1_std, Fz2_std):
     transp = 0.2
     line = 2 #linewidth
     length_vector = 101
+    number_of_settings = 6 #level_up, level_down, ramp75_up,...
     #----------------mean of both force plates:
     Fx = Fx1
     Fz = Fz1
     Fx_std = Fx1_std
     Fz_std = Fz1_std
 
-    for i in range(0,6):
+    for i in range(0,number_of_settings):
         Fx[i][1] = np.mean(np.array([Fx1[i][1],Fx2[i][1]]),axis = 0)
         Fz[i][1] = np.mean(np.array([Fz1[i][1],Fz2[i][1]]),axis = 0)
         Fx_std[i][1] = np.mean(np.array([Fx1_std[i][1],Fx2_std[i][1]]),axis = 0)
@@ -432,7 +298,7 @@ def plot_GRFs(Fx1,Fx2,Fz1, Fz2,Fx1_std,Fx2_std,Fz1_std, Fz2_std):
     plt.rc ('xtick', labelsize = 15)
     plt.rc ('ytick', labelsize = 15)
     plt.rc ('legend', fontsize = 15)
-    fig2 = plt.figure(2,figsize=(12, 12))
+    fig2 = plt.figure(2) #,figsize=(12, 12))
     plt.plot(Fx[0][1],color = (0,0,0.9), linewidth = line) #10 up, dark blue
     plt.plot(Fx[4][1],color = (0,0.7,1), linewidth = line) #7.5 up, light blue
     plt.plot(Fx[2][1],color = (0,0,0), linewidth = line)  #level, black
@@ -456,93 +322,5 @@ def plot_GRFs(Fx1,Fx2,Fz1, Fz2,Fx1_std,Fx2_std,Fz1_std, Fz2_std):
     plt.ylabel('GRF [BW]')
     plt.draw()
     plt.show()
-
-
-#-------------------------------------------------------------------------------
-
-def boxplot_VPP(VPP1,Rsquared):
-
-    #-----create list with setups/conditions
-    list_trials = []
-    vpp_all = []
-    r_all = []
-    vpp_name = []
-
-    vpp_help = []
-    r_help = []
-    count = 0
-
-    order = [2,4,0,5,3,1]
-
-    for n in range(0,len(VPP1)):
-        name = VPP1[n][0]
-        trial = name[6:len(name)]
-        if count == 0:
-            trial_0 = trial
-        elif trial == trial_0:
-            count = 0 #initialize again
-        list_trials.append(count)
-        count +=1
-    #------count how many probands:
-    count_prob = [i for i,x in enumerate(list_trials) if x==0]
-    vppx = np.empty(shape=(int(len(VPP1)/len(count_prob)), len(count_prob))) #count of setups, count of subjects
-    vppz = np.empty(shape=(int(len(VPP1)/len(count_prob)), len(count_prob)))
-    r = np.empty(shape=(int(len(VPP1)/len(count_prob)), len(count_prob)))
-
-
-    #------------build mean over the probands in each setup/condition (e.g. eben up)
-    ct = 0
-    for k in range(0,int(len(VPP1)/len(count_prob))):
-        Idx = [i for i,x in enumerate(list_trials) if x==k]
-        name = VPP1[k][0]
-        vpp_all.append([name[6:len(name)],[VPP1[i][1] for i in Idx]])
-        r_all.append([name[6:len(name)],[Rsquared[i][1] for i in Idx]])
-    for i in order:
-        vpp_name.append(vpp_all[i][0])
-        vpp_help = vpp_all[i][1]
-        r_help = r_all[i][1]
-        for k in range(0,len(count_prob)):
-            vppx[ct][k] = vpp_help[k][0]
-            vppz[ct][k] = vpp_help[k][1]
-            r[ct][k] = r_help[k]
-        ct +=1
-
-    labels = vpp_name
-    colors = ['peachpuff', 'orange', 'tomato','peachpuff', 'orange', 'tomato']
-    #--------------------------VPPx
-    fig1, ax = plt.subplots(figsize=(10, 7))
-    ax.set_ylabel('VPPx [m]')
-
-    bplot = ax.boxplot(np.transpose(vppx),
-                       patch_artist=True,  # fill with color
-                       labels=labels)  # will be used to label x-ticks (rename labels to tick_labels in newer version?)
-
-    # fill with colors
-    for patch, color in zip(bplot['boxes'], colors):
-        patch.set_facecolor(color)
-
-    plt.draw()
-    #------------------------------VPPz
-    fig2, ax = plt.subplots(figsize=(10, 7))
-    ax.set_ylabel('VPPz [m]')
-    bplot = ax.boxplot(np.transpose(vppz),patch_artist=True, labels=labels)
-
-    for patch, color in zip(bplot['boxes'], colors):
-        patch.set_facecolor(color)
-
-    plt.draw()
-    #-------------------------------R^2
-
-    fig3, ax = plt.subplots(figsize=(10, 7))
-    ax.set_ylabel('R²')
-
-    bplot = ax.boxplot(np.transpose(r),patch_artist=True, labels=labels)
-
-    # fill with colors
-    for patch, color in zip(bplot['boxes'], colors):
-        patch.set_facecolor(color)
-
-    plt.show()
-
 
 
