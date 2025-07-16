@@ -1,7 +1,11 @@
+# Human ramp walking repository
+
+This GitHub repository includes python code that can be used to calculate and visualize data of human ramp walking from an open access data repository. The whole data set is stored at the FigShare repository.
+
 # Calculation
 
 
-The file main_calculation.py creates a GUI. The GUI is developed to calculate the Virtual Pivot Point (VPP) easily. If there are problems, please contact me (johanna.vielemeyer@uni-jena.de) or optimize the code by yourself.
+The file _main_calculation.py_ creates a GUI. The GUI is developed to calculate the Virtual Pivot Point (VPP) easily. If there are problems, please contact me (johanna.vielemeyer@uni-jena.de) or optimize the code by yourself.
 
 
 ## You need:
@@ -30,7 +34,7 @@ The file main_calculation.py creates a GUI. The GUI is developed to calculate th
 3. data folder: “Data_Level_1”
 	- raw data in .txt
  	- here you find an example (all trials of one participant)
-	- the whole dataset can be found at the figshare repository; please download the folder from there and save it as "Data_Level_1" in the main folder, where _main_calculation.py_ is stored
+	- the whole dataset can be found at the FigShare repository; please download the folder from there and save it as "Data_Level_1" in the main folder, where _main_calculation.py_ is stored
 	
       
 ## Start 
@@ -75,7 +79,7 @@ Start in terminal with the following input:
 		- _plot_means.py_ (plot mean curves over trials and subjects)
 3. data folder: “Data_Level_2”
 	- data compressed as .npz
- 	- could be created by VPP calculation tool GUI, see paragraph “calculation”, or can be downloaded from the figshare repository
+ 	- could be created by VPP calculation tool GUI, see paragraph “calculation”, or can be downloaded from the FigShare repository
   	- note: you need at least one file for each setting to create the plots
       
 ## Start in terminal with the following input:
