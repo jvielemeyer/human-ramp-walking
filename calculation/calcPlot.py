@@ -136,7 +136,6 @@ def button_plot_input(Cop1,Cop2,Copz1,Copz2, Com, Fx_a, Fx_b, Fz_a, Fz_b,p,tdto)
     min_all = min(min(COPx1),min(COPx2))
     max_all = max(max(COPx1),max(COPx2))
 
-
     tol = np.abs(max_all-min_all)*0.1
     axs[2, 0].set_ylim(min_all-tol,max_all+tol)
 
