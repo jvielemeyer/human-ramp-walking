@@ -3,21 +3,23 @@ import matplotlib.pyplot as plt
 import os #to get file name instead of whole file path
 from tkinter import filedialog
 
-import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
-import calcButtons #show_calc, show_calc1, button_res_save, button_res_both, button_res_single, nextVPP, prevVPP, save_figures, plot_input, plot_kin, plot_vpp
+from calculation import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
+from calculation import calcButtons #show_calc, show_calc1, button_res_save, button_res_both, button_res_single, nextVPP, prevVPP, save_figures, plot_input, plot_kin, plot_vpp
 
 #--------------------------------
 
 #if only one file: kinematic and kinetic, if two files: kinetic (dyn):
-def readData (preadin): #dyn
-    path = './Data_Level_1'
-    #path = filedialog.askopenfilenames()
+def readData (pstart,preadin,var_skip): #dyn
+    if var_skip == 0:
+        path = filedialog.askdirectory()
+    elif var_skip == 1:
+        path = './Data_Level_1'
+    pstart.browseButton_data['text'] = 'Data file(s) loaded'
     pathlist = [os.path.join(root, name)
         for root, dirs, files in os.walk(path)
         for name in files
         if name.endswith((".txt"))]
     preadin.files = sorted(pathlist) #sorted alphabetically
-
 
 def getData (pres,pstart,pkinetic,preadin,pkinematic1,pkinematic2a,pkinematic2b,ListeFiles,ListeVPP): #initialization
     #----------------read in all entries:

@@ -4,15 +4,17 @@ import matplotlib.pyplot as plt
 import configparser #to read ini-file
 import json #to read list in ini file
 
-import calcReadInData #readData, getData, readin_kinematics, calc_joints
-import calcCoM #Com_calc
+
+from calculation import calcReadInData #readData, getData, readin_kinematics, calc_joints
+from calculation import calcCoM #Com_calc
 
 #--------------------------------------------
 #read in initialization file:
-def readIni (preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b):
-    # ini_file=filedialog.askopenfilename()
+def readIni (pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b):
     ini_measure = "measurement_system.ini"
     ini_anthro = "anthropometrics.ini"
+    #pstart.browseButton_ini['text']='Initialization file(s) loaded'
+
     config = configparser.ConfigParser()
     config.read(ini_measure)
     config.read(ini_anthro)

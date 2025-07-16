@@ -4,11 +4,12 @@ from scipy.signal import butter #for butterworth filter
 import os #to get file name instead of whole file path
 import matplotlib.pyplot as plt
 
-import calcReadInData #readData, getData, readin_kinematics, calc_joints
-import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
-import calcVPP #VPP_calculation, R_mod
-import calcSave #button_save_data, data_save_npz, save_VPP_mean
-import calcPlot #button_plot_input, VPP_plot, VPP_plot_show, plot_joints
+from calculation import calcReadInData,calcInput,calcVPP, calcSave,calcPlot
+# import calcReadInData #readData, getData, readin_kinematics, calc_joints
+# import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
+# import calcVPP #VPP_calculation, R_mod
+# import calcSave #button_save_data, data_save_npz, save_VPP_mean
+# import calcPlot #button_plot_input, VPP_plot, VPP_plot_show, plot_joints
 
 
 
