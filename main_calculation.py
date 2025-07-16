@@ -8,7 +8,7 @@ from tkinter import font
 from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
-import sys
+#import sys
 import os
 import numpy as np #for calculation
 from numpy import genfromtxt #to get NaN for empty columns
@@ -17,11 +17,11 @@ import matplotlib.pyplot as plt #to create plots
 
 #-------------------import functions from other files
 
-sys.path.append(os.path.normpath('./calculation/'))
-import calcButtons #show_calc, show_calc1, button_res_save, button_res_both, button_res_single, nextVPP, prevVPP, save_figures, plot_input, plot_kin, plot_vpp
-import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
-import calcReadInData #readData, getData,readin_kinematics, calc_joints
-
+# sys.path.append(os.path.normpath('./calculation/'))
+# import calcButtons #show_calc, show_calc1, button_res_save, button_res_both, button_res_single, nextVPP, prevVPP, save_figures, plot_input, plot_kin, plot_vpp
+# import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
+# import calcReadInData #readData, getData,readin_kinematics, calc_joints
+from calculation import calcButtons, calcInput, calcReadInData
 
 #------------------------------------------------------------------------
 #----------FIRST PART: CREATE GUI-----------------------------------------
@@ -31,6 +31,28 @@ class Page(tk.Frame):
         tk.Frame.__init__(self, *args, **kwargs)
 
 #--------------------------------------------------------------------------
+class PageZero(Page):
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+        self.background=tk.Label(self,bg="white")
+        self.background.place(relx=0, rely=0, relwidth=1, relheight=1)
+        self.big_font=font.Font(self, family='Arial', size=50)
+        self.normal_font=font.Font(self, family='Arial', size=12)
+
+        self.number_files = tk.IntVar()
+        self.com_output = tk.IntVar()
+
+        #---------------------------------------------------------header
+        self.label_header=tk.Label(self, text= 'VPP calculation tool',font=self.big_font,bg='white', anchor='nw')
+        self.label_header.place(relx=0.05, rely=0.05, relwidth=1, relheight=0.15)
+
+        #-------------------------------------------------------------------Button
+        self.Button_skip=tk.Button(self, text='skip configurations', bg='red', fg='white', font=('helvetica', 12, 'bold'))
+        self.Button_skip.place(relx=0.3, rely=0.35, relwidth=0.4, relheight=0.15)
+        self.Button_config=tk.Button(self, text='adjust configurations', bg='green', fg='white', font=('helvetica', 12, 'bold'))
+        self.Button_config.place(relx=0.3, rely=0.6, relwidth=0.4, relheight=0.15)
+
+
 class PageStart(Page):
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
@@ -56,26 +78,26 @@ class PageStart(Page):
         self.radio_number_files_1.select()
 
         #-------------------------------------------------------------------Button
-        self.browseButton_ini=tk.Button(self, text='Load initialization file(s)...', bg='lightblue', fg='black', font=('helvetica', 12, 'bold'))
-        self.browseButton_ini.place(relx=0.3, rely=0.4, relwidth=0.4, relheight=0.1)
+        #self.browseButton_ini=tk.Button(self, text='Choose initialization file(s)...', bg='lightblue', fg='black', font=('helvetica', 12, 'bold'))
+        #self.browseButton_ini.place(relx=0.3, rely=0.4, relwidth=0.4, relheight=0.1)
         #all in one data file
-        self.browseButton_data=tk.Button(self, text='Load data file(s)...', bg='blue', fg='white', font=('helvetica', 12, 'bold'))
+        self.browseButton_data=tk.Button(self, text='Choose data folder...', bg='blue', fg='white', font=('helvetica', 12, 'bold'))
         #two separate data files (the order of the files has to fit)
         self.browseButton_data_dyn=tk.Button(self, text='Load kinetic data files...', bg='blue', fg='white', font=('helvetica', 12, 'bold'))
 
         self.browseButton_data_kin=tk.Button(self, text='Load kinematic data files...', bg='blue', fg='white', font=('helvetica', 12, 'bold'))
 
-        self.Button_skip=tk.Button(self, text='skip configuration \n calc direct', bg='red', fg='white', font=('helvetica', 12, 'bold'))
-        self.Button_skip.place(relx=0.375, rely=0.8, relwidth=0.25, relheight=0.1)
+        self.Button_skip=tk.Button(self, text='skip further configurations \n calc direct', bg='red', fg='white', font=('helvetica', 12, 'bold'))
+        self.Button_skip.place(relx=0.33, rely=0.8, relwidth=0.34, relheight=0.1)
 
         #option "one file" is shown on start page:
-        self.browseButton_data.place(relx=0.3, rely=0.5, relwidth=0.4, relheight=0.1)
+        self.browseButton_data.place(relx=0.3, rely=0.45, relwidth=0.4, relheight=0.15)
 
         #option two files is shown on start page:
         # self.browseButton_data_dyn.place(relx=0.15, rely=0.5, relwidth=0.34, relheight=0.1)
         # self.browseButton_data_kin.place(relx=0.5, rely=0.5, relwidth=0.35, relheight=0.1)
 
-        
+
         #--------------------------center of mass as output variable available?
         self.label_com_output=tk.Label(self, text= 'Center of mass (CoM) is already output variable in raw data ',font=self.normal_font,bg='white', anchor='nw')
         self.label_com_output.place(relx=0.1, rely=0.7, relwidth=0.7, relheight=0.05)
@@ -88,6 +110,10 @@ class PageStart(Page):
         # ------------------------------------------------------------
         self.button_forward =  tk.Button(self, text = ">>", font = self.normal_font,bd=1,bg = 'green', highlightbackground='black',activebackground="#e6e3e4")
         self.button_forward.place(relx = 0.9, rely = 0.9, relwidth=0.07, relheight=0.07)
+        self.button_back =  tk.Button(self, text = "<<", font = self.normal_font,bd=1,bg = 'green', highlightbackground='black',activebackground="#e6e3e4")
+        self.button_back.place(relx = 0.03, rely = 0.9, relwidth=0.07, relheight=0.07)
+
+
 
 #-------------------------------------------------------------------------
 #----------------------------Page "Configuration (kinetic data)""
@@ -647,6 +673,7 @@ class MainView(tk.Frame):
         self.entry_font=font.Font(self, family='Arial', size=40)
 
         #------------------------------------------
+        pzero=PageZero(self)
         pstart=PageStart(self)
         pkinetic=PageKinetic(self)
         pkinematic1=PageKinematic1(self)
@@ -662,6 +689,7 @@ class MainView(tk.Frame):
         container=tk.Frame(self)
         container.place(relx=0, rely=0, relwidth=1, relheight=1)
 
+        pzero.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         pstart.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         pkinetic.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
         pkinematic1.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
@@ -702,7 +730,7 @@ class MainView(tk.Frame):
         pstart.radio_number_files_1['command']=show_one_file
         pstart.radio_number_files_2['command']=show_two_files
         show_fp_3()
-        pstart.lift() #Start
+        pzero.lift() #Start
 
         #---------------------------------------------------------
         #---------------------------read in data: initialisation
@@ -714,6 +742,7 @@ class MainView(tk.Frame):
 
         #----------------------------BUTTONS------------------------
         # green buttons with arrows:
+        pstart.button_back['command']=pzero.lift
         pstart.button_forward['command']=pkinetic.lift
         pkinetic.button_back['command']=pstart.lift
         pkinetic.button_forward['command']=pkinematic1.lift
@@ -727,13 +756,31 @@ class MainView(tk.Frame):
         pkinematic1.button_forward['command']=show_pkinematic2
         preadin.button_back['command']=show_pkinematic2
         pres.button_back['command']=preadin.lift
-        #----------------------------------------------
-        #lambda: that the buttons just work when pressed and not at initialisation
+        #------------------------------
+        def skip_configurations(*args):
+            #load initialization files:
+            var_skip = 1 # 0: no skip, 1: yes skip (i.e. no dialogue box for choosing files)
+            calcInput.readIni(pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b,var_skip)
+            #load data files:
+            calcReadInData.readData(pstart,preadin,var_skip)
+            #calc results:
+            calcButtons.show_calc1(pres,pstart,pkinetic,preadin,pkinematic1,pkinematic2a,pkinematic2b,pres.ListeFiles,pres.ListeVPP)
 
-        pstart.browseButton_data['command']=lambda: calcReadInData.readData(preadin)
+        def adjust_configurations(*args):
+            var_skip = 0 # 0: no skip, 1: yes skip (i.e. no dialogue box for choosing files)
+            #load ini files:
+            calcInput.readIni(pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b)
+            pstart.lift()
+
+        #----------------------------------------------
+        #lambda: that the buttons just work when pressed and not at initialization
+
+        pzero.Button_config['command']=adjust_configurations
+        pzero.Button_skip['command']=skip_configurations
+        pstart.browseButton_data['command']=lambda: calcReadInData.readData(pstart,preadin,0)
         #pstart.browseButton_data_kin['command']=calcReadInData.readData_kin(self)
-        pstart.browseButton_data_dyn['command']=lambda: calcReadInData.readData(self)
-        pstart.browseButton_ini['command']=lambda: calcInput.readIni(preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b)
+        #pstart.browseButton_data_dyn['command']=lambda: calcReadInData.readData(self)
+        #pstart.browseButton_ini['command']=lambda: calcInput.readIni(pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b,0)
         pstart.Button_skip['command']=lambda: calcButtons.show_calc1(pres,pstart,pkinetic,preadin,pkinematic1,pkinematic2a,pkinematic2b,pres.ListeFiles,pres.ListeVPP)
         preadin.button_calc['command']=lambda: calcButtons.show_calc1(pres,pstart,pkinetic,preadin,pkinematic1,pkinematic2a,pkinematic2b,pres.ListeFiles,pres.ListeVPP)
         pres.button_next['command']=lambda: calcButtons.nextVPP(pres,pstart,preadin, pkinematic1, pkinematic2a,pkinematic2b, pkinetic,pres.ListeFiles)
