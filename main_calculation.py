@@ -8,7 +8,6 @@ from tkinter import font
 from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
-#import sys
 import os
 import numpy as np #for calculation
 from numpy import genfromtxt #to get NaN for empty columns
@@ -17,7 +16,6 @@ import matplotlib.pyplot as plt #to create plots
 
 #-------------------import functions from other files
 
-# sys.path.append(os.path.normpath('./calculation/'))
 # import calcButtons #show_calc, show_calc1, button_res_save, button_res_both, button_res_single, nextVPP, prevVPP, save_figures, plot_input, plot_kin, plot_vpp
 # import calcInput #readIni, button_get_entries, calc_forces_cop_com, load_data
 # import calcReadInData #readData, getData,readin_kinematics, calc_joints
