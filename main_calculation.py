@@ -760,7 +760,7 @@ class MainView(tk.Frame):
         def skip_configurations(*args):
             #load initialization files:
             var_skip = 1 # 0: no skip, 1: yes skip (i.e. no dialogue box for choosing files)
-            calcInput.readIni(pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b,var_skip)
+            calcInput.readIni(pstart,preadin,pres,pkinetic,pkinematic1,pkinematic2a,pkinematic2b)
             #load data files:
             calcReadInData.readData(pstart,preadin,var_skip)
             #calc results:
